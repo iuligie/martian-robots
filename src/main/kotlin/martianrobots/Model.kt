@@ -27,3 +27,26 @@ data class Robot(
         if (lost) append(" LOST")
     }
 }
+
+/**
+ * The bounded world. Lower-left is always (0, 0).
+ *
+ * Holds the scents left by lost robots; this is the only state shared between robots,
+ * which is why robots must be run sequentially.
+ */
+class Mars(val upperRight: Coordinate) {
+    private val scents = mutableSetOf<Coordinate>()
+
+    init {
+        require(upperRight.x >= 0 && upperRight.y >= 0) { "Grid upper-right must not be negative: $upperRight" }
+    }
+
+    operator fun contains(coordinate: Coordinate): Boolean =
+        coordinate.x in 0..upperRight.x && coordinate.y in 0..upperRight.y
+
+    fun hasScent(coordinate: Coordinate): Boolean = coordinate in scents
+
+    fun leaveScent(coordinate: Coordinate) {
+        scents += coordinate
+    }
+}
