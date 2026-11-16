@@ -111,6 +111,16 @@ src/main/kotlin/martianrobots/
 - **Commands are case-sensitive.** Instructions must be upper case (`L`, `R`, `F`) and orientations
   must be `N`, `E`, `S` or `W`, as in the brief.
 
+## How I used AI
+
+I used Claude Code throughout, as the brief encourages. I treated it as a fast pair: it produced the first
+implementation and tests from my direction, and I spent most of my time on judgement. Once I had a working
+solution, I reviewed it critically against the brief and researched how other solutions had been implemented
+to find gaps in mine. From that I decided what to change: moving the edge and scent rules into a single
+`Stepper` so future commands can't bypass them, adding end-to-end CLI tests, making the build work on any
+JDK 17+, and fixing a misleading error message. I didn't commit anything I couldn't explain, and I organised
+the history into reviewable steps at the end.
+
 ## What I'd do with more time
 
 - **Multi-square commands** (e.g. jump 2): the `Stepper` checks only where a proposal ends up, so a
